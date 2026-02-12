@@ -1,0 +1,117 @@
+#include <stdio.h>
+#include <stdlib.h>
+#define MAX 100
+int arr[MAX];
+int size = 0;
+void insert_beginning() {
+    if (size >= MAX) return;
+    for (int i = size; i > 0; i--) arr[i] = arr[i-1];
+    printf("Enter value: ");
+    scanf("%d", &arr[0]);
+    size++;
+}
+void insert_end() {
+    if (size >= MAX) return;
+    printf("Enter value: ");
+    scanf("%d", &arr[size]);
+    size++;
+}
+void insert_position() {
+    if (size >= MAX) return;
+    int pos;
+    printf("Enter position (0-%d): ", size);
+    scanf("%d", &pos);
+    if (pos < 0 || pos > size) return;
+    for (int i = size; i > pos; i--) arr[i] = arr[i-1];
+    printf("Enter value: ");
+    scanf("%d", &arr[pos]);
+    size++;
+}
+void delete_beginning() {
+    if (size <= 0) return;
+    for (int i = 0; i < size-1; i++) arr[i] = arr[i+1];
+    size--;
+}
+void delete_end() {
+    if (size > 0) size--;
+}
+void delete_position() {
+    int pos;
+    printf("Enter position (0-%d): ", size-1);
+    scanf("%d", &pos);
+    if (pos < 0 || pos >= size) return;
+    for (int i = pos; i < size-1; i++) arr[i] = arr[i+1];
+    size--;
+}
+void display() {
+    for (int i = 0; i < size; i++) printf("%d ", arr[i]);
+    printf("\n");
+}
+int search() {
+    int val;
+    printf("Enter value to search: ");
+    scanf("%d", &val);
+    for (int i = 0; i < size; i++) if (arr[i] == val) return i;
+    return -1;
+}
+void update() {
+    int pos, val;
+    printf("Enter position: ");
+    scanf("%d", &pos);
+    if (pos < 0 || pos >= size) return;
+    printf("Enter new value: ");
+    scanf("%d", &val);
+    arr[pos] = val;
+}
+void sort() {
+    for (int i = 0; i < size-1; i++)
+        for (int j = 0; j < size-i-1; j++)
+            if (arr[j] > arr[j+1]) {
+                int temp = arr[j];
+                arr[j] = arr[j+1];
+                arr[j+1] = temp;
+            }
+}
+int main() {
+    int choice;
+    while (1) {
+        printf("1. Insert in Beginning\n");
+        printf("2. Insert At end\n");
+        printf("3. insert At any Position\n");
+        printf("4. Delete From Beginning\n");
+        printf("5. Delete From end\n");
+        printf("6. Delete From Given Position\n");
+        printf("7. Display List\n");
+        printf("8. Search Element In List\n");
+        printf("9. Update Element IN List\n");
+        printf("10. Sort elements of List\n");
+        printf("11. Exit\n");
+        printf("Enter choice: ");
+        scanf("%d", &choice);
+        switch (choice) {
+            case 1: insert_beginning();
+             break;
+            case 2: insert_end();
+             break;
+            case 3: insert_position();
+             break;
+            case 4: delete_beginning(); 
+            break;
+            case 5: delete_end();
+             break;
+            case 6: delete_position();
+             break;
+            case 7: display(); 
+            break;
+            case 8: printf("Found at: %d\n", search()); 
+            break;
+            case 9: update(); 
+            break;
+            case 10: sort();
+            break;
+            case 11: exit(0);
+        }
+        printf("\n");
+    }
+    return 0;
+}
