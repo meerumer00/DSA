@@ -1,0 +1,71 @@
+#include <stdio.h>
+
+int main() {
+    int S, N;
+    scanf("%d", &S);
+    scanf("%d", &N);
+
+    int stack[100];
+    int top = -1;
+
+    for(int i = 0; i < N; i++) {
+        scanf("%d", &stack[++top]);
+    }
+
+    int push1[4], push2[2];
+
+    for(int i = 0; i < 4; i++)
+        scanf("%d", &push1[i]);
+
+    for(int i = 0; i < 2; i++)
+        scanf("%d", &push2[i]);
+
+    for(int i = 0; i < 2; i++) {
+        if(top == -1) {
+            printf("Underflow\n");
+        } else {
+            printf("Popped: %d\n", stack[top--]);
+        }
+    }
+
+    for(int i = 0; i < 4; i++) {
+        if(top == S - 1) {
+            printf("Overflow\n");
+        } else {
+            stack[++top] = push1[i];
+        }
+    }
+
+    for(int i = 0; i < 1; i++) {
+        if(top == -1) {
+            printf("Underflow\n");
+        } else {
+            printf("Popped: %d\n", stack[top--]);
+        }
+    }
+
+    for(int i = 0; i < 2; i++) {
+        if(top == S - 1) {
+            printf("Overflow\n");
+        } else {
+            stack[++top] = push2[i];
+        }
+    }
+
+    for(int i = 0; i < 3; i++) {
+        if(top == -1) {
+            printf("Underflow\n");
+        } else {
+            printf("Popped: %d\n", stack[top--]);
+        }
+    }
+
+    if(top == -1) {
+        printf("Stack is Empty");
+    } else {
+        for(int i = top; i >= 0; i--)
+            printf("%d ", stack[i]);
+    }
+
+    return 0;
+}
