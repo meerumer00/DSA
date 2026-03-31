@@ -1,0 +1,106 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+int main() {
+    int N1, N2;
+    scanf("%d %d", &N1, &N2);
+
+    int *stack1 = (int *)malloc(N1 * sizeof(int));
+    int *stack2 = (int *)malloc(N2 * sizeof(int));
+
+    int top1 = -1, top2 = -1;
+
+    int Q;
+    scanf("%d", &Q);
+
+    while (Q--) {
+        char op[10];
+        scanf("%s", op);
+
+        if (strcmp(op, "PUSH") == 0) {
+            int S, X;
+            scanf("%d %d", &S, &X);
+
+            if (S == 1) {
+                if (top1 == N1 - 1) {
+                    printf("Overflow\n");
+                } else {
+                    stack1[++top1] = X;
+                }
+            } else {
+                if (top2 == N2 - 1) {
+                    printf("Overflow\n");
+                } else {
+                    stack2[++top2] = X;
+                }
+            }
+        } 
+        else if (strcmp(op, "POP") == 0) {
+            int S;
+            scanf("%d", &S);
+
+            if (S == 1) {
+                if (top1 == -1) {
+                    printf("Underflow\n");
+                } else {
+                    printf("%d\n", stack1[top1--]);
+                }
+            } else {
+                if (top2 == -1) {
+                    printf("Underflow\n");
+                } else {
+                    printf("%d\n", stack2[top2--]);
+                }
+            }
+        } 
+        else if (strcmp(op, "PEEK") == 0) {
+            int S;
+            scanf("%d", &S);
+
+            if (S == 1) {
+                if (top1 == -1) {
+                    printf("Underflow\n");
+                } else {
+                    printf("%d\n", stack1[top1]);
+                }
+            } else {
+                if (top2 == -1) {
+                    printf("Underflow\n");
+                } else {
+                    printf("%d\n", stack2[top2]);
+                }
+            }
+        } 
+        else if (strcmp(op, "DISPLAY") == 0) {
+            int S;
+            scanf("%d", &S);
+
+            if (S == 1) {
+                if (top1 == -1) {
+                    printf("Empty\n");
+                } else {
+                    for (int i = top1; i >= 0; i--) {
+                        printf("%d", stack1[i]);
+                        if (i != 0) printf(" ");
+                    }
+                    printf("\n");
+                }
+            } else {
+                if (top2 == -1) {
+                    printf("Empty\n");
+                } else {
+                    for (int i = top2; i >= 0; i--) {
+                        printf("%d", stack2[i]);
+                        if (i != 0) printf(" ");
+                    }
+                    printf("\n");
+                }
+            }
+        }
+    }
+
+    free(stack1);
+    free(stack2);
+    return 0;
+}
