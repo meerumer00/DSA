@@ -1,0 +1,40 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <math.h>
+
+int main() {
+    char s[1000];
+    char *tokens[200];
+    long long stack[200];
+    int top = -1, count = 0;
+
+    fgets(s, sizeof(s), stdin);
+
+    char *t = strtok(s, " \n");
+    while (t != NULL) {
+        tokens[count++] = t;
+        t = strtok(NULL, " \n");
+    }
+
+    for (int i = count - 1; i >= 0; i--) {
+        if (isdigit(tokens[i][0])) {
+            stack[++top] = atoll(tokens[i]);
+        } else {
+            long long a = stack[top--];
+            long long b = stack[top--];
+            long long r;
+
+            if (tokens[i][0] == '+') r = a + b;
+            else if (tokens[i][0] == '-') r = a - b;
+            else if (tokens[i][0] == '*') r = a * b;
+            else if (tokens[i][0] == '/') r = a / b;
+            else r = pow(a, b);
+
+            stack[++top] = r;
+        }
+    }
+
+    printf("%lld", stack[top]);
+    return 0;
+}
