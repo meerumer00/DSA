@@ -1,0 +1,35 @@
+#include <stdio.h>
+#include <string.h>
+
+int isOperator(char c){
+    return c=='+'||c=='-'||c=='*'||c=='/'||c=='^';
+}
+
+int main(){
+    char s[100];
+    fgets(s,100,stdin);
+    
+    char stack[100][200];
+    int top=-1;
+    
+    char *token=strtok(s," \n");
+    
+    while(token){
+        if(strlen(token)==1 && isOperator(token[0])){
+            char op=token[0];
+            char b[200],a[200],temp[200];
+            
+            strcpy(b,stack[top--]);
+            strcpy(a,stack[top--]);
+            
+            sprintf(temp,"(%s%c%s)",a,op,b);
+            strcpy(stack[++top],temp);
+        }else{
+            strcpy(stack[++top],token);
+        }
+        token=strtok(NULL," \n");
+    }
+    
+    printf("%s",stack[top]);
+    return 0;
+}
