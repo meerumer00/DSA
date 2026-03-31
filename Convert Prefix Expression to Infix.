@@ -1,0 +1,30 @@
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+int main() {
+    char s[101];
+    char stack[101][101];
+    int top = -1;
+    
+    scanf("%s", s);
+    int n = strlen(s);
+
+    for (int i = n - 1; i >= 0; i--) {
+        if (isalnum(s[i])) {
+            char temp[2];
+            temp[0] = s[i];
+            temp[1] = '\0';
+            strcpy(stack[++top], temp);
+        } else {
+            char op1[101], op2[101], exp[205];
+            strcpy(op1, stack[top--]);
+            strcpy(op2, stack[top--]);
+            sprintf(exp, "(%s%c%s)", op1, s[i], op2);
+            strcpy(stack[++top], exp);
+        }
+    }
+
+    printf("%s", stack[top]);
+    return 0;
+}
