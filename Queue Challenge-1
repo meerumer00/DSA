@@ -1,0 +1,143 @@
+HackerRank Home
+HackerRank
+|
+Prepare
+Certify
+Compete
+Search
+ 
+All Contests  Data Structures Coding Contest  Queue Challenge-1
+Queue Challenge-1
+Problem
+Submissions
+Leaderboard
+Submitted a month ago • Score: 10.00Status: Accepted
+ Test Case #0
+ Test Case #1
+ Test Case #2
+ Test Case #3
+ Test Case #4
+ Test Case #5
+ Test Case #6
+ Test Case #7
+
+Submitted Code
+Language: C
+
+ Open in editor
+1
+#include <stdio.h>
+2
+#include <string.h>
+3
+#include <math.h>
+4
+#include <stdlib.h>
+5
+int main() {
+6
+    int N, Q;
+7
+    scanf("%d", &N);
+8
+    scanf("%d", &Q);
+9
+    int queue[N];
+10
+    int front = -1, rear = -1;
+11
+    while(Q--) {
+12
+        int type;
+13
+        scanf("%d", &type);
+14
+        if(type == 1) {
+15
+            int x;
+16
+            scanf("%d", &x);
+17
+​
+18
+            if(rear == N-1) {
+19
+                printf("Queue Overflow\n");
+20
+            }
+21
+            else {
+22
+                if(front == -1) front = 0;
+23
+                queue[++rear] = x;
+24
+            }
+25
+        }
+26
+        else if(type == 2) {
+27
+            if(front == -1 || front > rear) {
+28
+                printf("Queue Underflow\n");
+29
+            }
+30
+            else {
+31
+                printf("%d\n", queue[front]);
+32
+                front++;
+33
+            }
+34
+        }
+35
+        else if(type == 3) {
+36
+            if(front == -1 || front > rear) {
+37
+                printf("Queue Underflow\n");
+38
+            }
+39
+            else {
+40
+                printf("%d\n", queue[front]);
+41
+            }
+42
+        }
+43
+​
+44
+        else if(type == 4) {
+45
+            if(front == -1 || front > rear) {
+46
+                printf("Queue is Empty\n");
+47
+            }
+48
+            else {
+49
+                for(int i = front; i <= rear; i++) {
+50
+                    printf("%d ", queue[i]);
+51
+                }
+52
+                printf("\n");
+53
+            }
+54
+        }
+55
+    }
+56
+    return 0;
+57
+}
+Interview Prep | Blog | Scoring | Environment | FAQ | About Us | Support | Careers | Terms Of Service | Privacy Policy |
+
