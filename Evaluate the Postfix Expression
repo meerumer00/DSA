@@ -1,0 +1,31 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <math.h>
+
+int main() {
+    char s[101];
+    long long stack[101];
+    int top = -1;
+
+    fgets(s, sizeof(s), stdin);
+    char *token = strtok(s, " \n");
+
+    while (token != NULL) {
+        if (isdigit(token[0])) {
+            stack[++top] = atoll(token);
+        } else {
+            long long b = stack[top--];
+            long long a = stack[top--];
+            if (token[0] == '+') stack[++top] = a + b;
+            else if (token[0] == '-') stack[++top] = a - b;
+            else if (token[0] == '*') stack[++top] = a * b;
+            else if (token[0] == '/') stack[++top] = a / b;
+            else if (token[0] == '^') stack[++top] = (long long)pow(a, b);
+        }
+        token = strtok(NULL, " \n");
+    }
+
+    printf("%lld", stack[top]);
+    return 0;
+}
