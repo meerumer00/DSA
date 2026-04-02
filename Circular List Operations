@@ -1,0 +1,148 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+struct Node{
+    int data;
+    struct Node* next;
+};
+struct Node* head = NULL;
+struct Node* createNode(int data){
+    struct Node* temp = (struct Node* )malloc(sizeof(struct Node));
+    temp->data = data;
+    temp->next = NULL;
+    return temp;
+}
+void insertInBeg(int  data){
+    struct Node* newNode = createNode(data);
+    if(head == NULL){
+         head = newNode;
+        newNode->next = head;
+    }
+    else{
+        struct Node* temp = head;
+        do{
+            temp = temp-> next;
+        }while(temp->next != head);
+        temp->next = newNode;
+        newNode->next = head;
+        head = newNode;
+    }
+    
+}
+    void insertAtEnd(int data){
+        struct Node* newNode = createNode(data);
+    if(head == NULL){
+         head = newNode;
+        newNode->next = head;
+    }
+    else{
+        struct Node* temp = head;
+        do{
+            temp = temp-> next;
+        }while(temp->next != head);
+        temp->next = newNode;
+        newNode->next = head;
+    }
+}
+void insertAtPos(int pos, int data){
+   if(head == NULL && pos == 1)
+       insertINBeg(data);
+    else if(pos == 1)
+        insertInBeg(data);
+    else{
+        struct Node* temp = head;
+        int i = 1;
+        do{
+            temp = temp->next;
+            i++;
+        }while(i != pos-1 && temp->next != head);
+        if(temp->next != head){
+            struct Node* newNode = createNode(data);
+            newNode->next = temp->next;
+            temp->next = newNode;    
+        }
+        else if(i == pos-1)
+            insertAtEnd(data);
+    }
+}
+void deleteFromBeg(){
+    if(head->next == head)
+        head = NULL;
+    else{
+        struct Node* temp = head;
+        while(temp->next != head){
+            temp = temp->next;
+        }
+        temp->next = head->next;
+        head = head->next;
+    }
+}
+void deleteFromEnd(){
+      if(head->next == head)
+        head = NULL;
+    else{
+        struct Node* temp = head;
+        while(temp->next->next != head){
+            temp = temp->next;
+        }
+        temp->next = head;
+       
+    }
+}
+void deleteByValue(int val){
+    if(head->data == val)
+        deleteFromBeg();
+    else{
+        struct Node* curr = head, *prev= NULL;
+        while(curr != head)
+            if(curr->data == val){
+                prev->next = curr->next;
+                break;
+            }
+    }
+}
+void countNodes(){
+ int count = 0;
+    if(head == NULL)
+        struct Node* temp = head;
+        do{
+            i++;
+            temp = temp->next;
+        }while(temp != head);
+        printf("%d\n", count);
+    }
+    printf("%d\n", count)
+}
+void displayList(){
+ if(head == NULL)
+     printf("EMPTY");
+    else{
+        struct Node* temp = head;
+        do{
+            printf("%d ",temp->data);
+            temp = temp->next;
+        }while(temp != head);
+    }
+    printf("\n");
+}
+void search(int value){
+    if(head != NULL){
+        struct Node* temp = head;
+        int i = 0;
+        do{
+            i++;
+            if(temp->data == value){
+                printf("%d\n", i);
+                return;
+            }
+            temp = temp->next;
+        }while(temp != head);
+    }
+    printf("\n")
+}
+
+  int main() {
+      
+    return 0;
+}
