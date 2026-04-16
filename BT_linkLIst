@@ -1,0 +1,138 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX 100
+
+struct Node {
+    struct Node* left;
+    int data;
+    struct Node* right;
+};
+
+struct Node* createNode(int data) {
+    struct Node* temp = (struct Node*)malloc(sizeof(struct Node));
+    temp->data = data;
+    temp->left = temp->right = NULL;
+    return temp;
+}
+
+struct Node* insert(struct Node* root, int data) {
+    if (root == NULL) {
+        return createNode(data);
+    } else {
+        struct Node* queue[MAX];
+        int front = 0;
+        int rear = -1;
+        queue[++rear] = root;
+
+        while (front <= rear) {
+            struct Node* temp = queue[front++];
+
+            if (temp->left == NULL) {
+                temp->left = createNode(data);
+                break;
+            } else {
+                queue[++rear] = temp->left;
+            }
+
+            if (temp->right == NULL) {
+                temp->right = createNode(data);
+                break;
+            } else {
+                queue[++rear] = temp->right;
+            }
+        }
+    }
+    return root;
+}
+
+void preOrder(struct Node* root) {
+    if (root == NULL) return;
+    printf("%d ", root->data);
+    preOrder(root->left);
+    preOrder(root->right);
+}
+
+void inOrder(struct Node* root) {
+    if (root == NULL) return;
+    inOrder(root->left);
+    printf("%d ", root->data);
+    inOrder(root->right);
+}
+
+void postOrder(struct Node* root) {
+    if (root == NULL) return;
+    postOrder(root->left);
+    postOrder(root->right);
+    printf("%d ", root->data);
+}
+
+void levelOrder(struct Node* root) {
+    if (root == NULL) return;
+    
+    struct Node* queue[MAX];
+    int front = 0;
+    int rear = -1;
+    
+    queue[++rear] = root;
+    
+    while (front <= rear) {
+        struct Node* temp = queue[front++];
+        printf("%d ", temp->data);
+        
+        if (temp->left != NULL) {
+            queue[++rear] = temp->left;
+        }
+        
+        if (temp->right != NULL) {
+            queue[++rear] = temp->right;
+        }
+    }
+}
+
+int main() {
+    int choice, value;
+    struct Node* root = NULL;
+
+    while (1) {
+        printf("\n***** Binary Tree Menu *****\n");
+        printf("1. Insert\n");
+        printf("2. Level Order Traversal\n");
+        printf("3. Pre-Order Traversal\n");
+        printf("4. In-Order Traversal\n");
+        printf("5. Post-Order Traversal\n");
+        printf("6. Exit\n");
+        printf("Enter Choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                printf("Enter value: ");
+                scanf("%d", &value);
+                root = insert(root, value);
+                break;
+            case 2:
+                printf("Level Order Traversal: ");
+                levelOrder(root);  // Correct level-order traversal
+                break;
+            case 3:
+                printf("Pre-Order Traversal: ");
+                preOrder(root);
+                break;
+            case 4:
+                printf("In-Order Traversal: ");
+                inOrder(root);
+                break;
+            case 5:
+                printf("Post-Order Traversal: ");
+                postOrder(root);
+                break;
+            case 6:
+                exit(0);
+            default:
+                printf("Invalid choice!!!\n");
+        }
+    }
+
+    return 0;
+}
