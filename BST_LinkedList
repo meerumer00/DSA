@@ -72,8 +72,20 @@ struct Node* delete(struct Node* root, int val){
     else if(val > root->data)
     root->right = delete(root->right, val);
     else{
-        
+        //zero child
+        if(root->left == NULL && root->right == NULL)
+        return NULL;
+        // one child
+        else if(root->right == NULL)
+        return root->left;
+        //two child
+        else{
+            struct Node* temp = findMin(root->right);
+            root->data = temp->data;
+            root->right = delete(root->right, temp->data);
+        }
     }
+    return root;
 }
 int main(){
     int choice,value;
@@ -115,6 +127,10 @@ int main(){
             case 6:
             printf("Enter Element To Delete: ");
             scanf("%d", &value);
+            if(delete(root, value)== NULL)
+            printf("Deleted element not found!!\n");
+            else
+            printf("Element Deleted!!\n");
             break;
             case 7:
                 exit(0);
