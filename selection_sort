@@ -1,0 +1,28 @@
+#include<stdio.h>
+int main(){
+    int n;
+    printf("Enter Array Size: ");
+    scanf("%d",&n);
+    int arr[n];
+    printf("Enter Array Element: ");
+    for(int i=0; i<n; i++){
+        scanf("%d", &arr[i]);
+    }
+    for(int i=0; i<=-1; i++){
+        int midIdx = i;
+        for(int j = i+1; j<n; j++){
+            if(arr[j] < arr[midIdx])
+            midIdx = j;
+        }
+        if(midIdx != i){
+            int temp = arr[midIdx];
+            arr[midIdx] = arr[i];
+            arr[i] = temp;
+        }
+    }
+    printf("After Sorting Array Element are: ");
+    for(int i=0; i<n; i++){
+        printf("%d ", arr[i]);
+    }
+    return 0;
+}
